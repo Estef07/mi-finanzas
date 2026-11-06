@@ -3,10 +3,9 @@
   "short_name": "Mi Finanzas",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#080611",
+  "background_color": "#090611",
   "theme_color": "#10051d",
   "lang": "es",
-  "description": "Control personal de gastos, tarjetas y gastos compartidos.",
   "icons": [
     {
       "src": "./icon-512.png",
