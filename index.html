@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#10051d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Mi Finanzas">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-512.png">
+<title>Mi Finanzas</title>
+<style>
+:root{--bg:#080611;--surface:#151023;--surface2:#20152f;--line:#38274b;--text:#fffaff;--muted:#b6a9c8;--purple:#a100ff;--pink:#ff35c8;--cyan:#18e6e2;--gold:#ffd329;--green:#00e6a0;--blue:#368cff;--shadow:0 0 24px #a100ff24}
+*{box-sizing:border-box}html{background:var(--bg);scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#35104e 0%,#10091c 38%,var(--bg) 72%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh;padding-bottom:calc(88px + env(safe-area-inset-bottom))}
+button,input,select{font:inherit}button{cursor:pointer}
+.app{max-width:540px;margin:auto;padding:env(safe-area-inset-top) 16px 20px}
+.top{display:flex;align-items:center;justify-content:space-between;padding:20px 2px 14px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:25px;letter-spacing:-.6px}
+.logo{width:43px;height:43px;border-radius:15px;display:grid;place-items:center;color:#ff59eb;background:linear-gradient(145deg,#39105c,#170c2b);border:1px solid #b83dff;box-shadow:0 0 18px #bd28ff55;font-size:24px}
+.top-actions{display:flex;gap:9px}.iconbtn{width:40px;height:40px;border-radius:50%;border:1px solid #51336c;background:#21152f;color:#fff;font-size:18px}
+.monthbar{display:flex;align-items:center;justify-content:space-between;margin:7px auto 16px;padding:10px 13px;width:min(100%,300px);border:1px solid #56356e;border-radius:30px;background:#1b1028;color:#fff}
+.monthbar button{border:0;background:none;color:#fff;font-size:21px}.monthbar input{background:transparent;color:#fff;border:0;width:145px;text-align:center;font-weight:700}
+.hero{position:relative;overflow:hidden;padding:18px 19px;border-radius:23px;background:linear-gradient(115deg,#33105e,#5c0aa6 58%,#8d00b9);border:1px solid #c23bff;box-shadow:0 0 23px #a100ff66,inset 0 0 24px #f05cff20}
+.hero:after{content:"";position:absolute;width:160px;height:160px;right:-45px;top:-75px;border-radius:50%;background:#ff3de3;filter:blur(70px);opacity:.4}
+.hero-label{font-size:14px;color:#f2dfff}.hero-total{font-size:34px;font-weight:850;letter-spacing:-1px;margin-top:3px}
+.hero-bottom{display:flex;align-items:center;justify-content:space-between}.hero-icon{font-size:35px;color:#ffe34e;text-shadow:0 0 13px #ffe34e}
+.people{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:12px 0 22px}
+.person{border-radius:17px;padding:12px 9px;background:#102d2a;border:1px solid var(--cyan);box-shadow:0 0 12px #00e5db35;text-align:center;min-width:0}
+.person:nth-child(2){background:#30260c;border-color:var(--gold);box-shadow:0 0 12px #ffd32930}.person:nth-child(3){background:#35102d;border-color:var(--pink);box-shadow:0 0 12px #ff35c830}
+.person small{display:block;font-size:12px;color:#f5eafa}.person strong{display:block;font-size:15px;margin-top:5px;white-space:nowrap}
+.section{display:flex;align-items:center;justify-content:space-between;margin:20px 2px 11px}.section h2{font-size:19px;margin:0;letter-spacing:-.3px}.link{border:0;background:none;color:#df65ff;font-weight:700}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.bank{display:flex;align-items:center;gap:9px;padding:13px 11px;border-radius:17px;background:linear-gradient(120deg,#063d27,#06271f);border:1px solid #00d878;box-shadow:0 0 12px #00df7b2b;min-height:82px}
+.bank:nth-child(2){background:linear-gradient(120deg,#092b64,#101b3f);border-color:#268cff;box-shadow:0 0 12px #268cff2b}
+.bank:nth-child(3){background:linear-gradient(120deg,#082d61,#101d46);border-color:#168dff}
+.bank:nth-child(4){background:linear-gradient(120deg,#39105d,#1c1038);border-color:#bb38ff;box-shadow:0 0 12px #bb38ff35}
+.bank-name{font-size:17px;font-weight:850;line-height:1.05}.bank-sub{font-size:11px;color:#e7d9f4;margin-top:4px}.bank-info{border-left:1px solid #ffffff40;padding-left:9px;min-width:0}.bank-info small{display:block;font-size:10px;color:#e2d4f0}.bank-info strong{font-size:14px;white-space:nowrap}
+.chartbox{border:1px solid var(--line);background:linear-gradient(145deg,#171023,#100b1c);border-radius:20px;padding:15px}
+.chart-layout{display:grid;grid-template-columns:126px 1fr;align-items:center;gap:13px}
+.donut{width:124px;height:124px;border-radius:50%;background:conic-gradient(var(--pink) 0 25%,var(--purple) 25% 50%,var(--cyan) 50% 75%,var(--gold) 75% 100%);display:grid;place-items:center;box-shadow:0 0 18px #b62dff44}
+.donut-inner{width:82px;height:82px;border-radius:50%;background:#120c1e;display:grid;place-content:center;text-align:center;padding:4px}
+.donut-inner b{font-size:14px}.donut-inner small{font-size:9px;color:var(--muted)}
+.catrow{display:grid;grid-template-columns:20px 1fr auto;align-items:center;gap:6px;padding:8px 9px;border-radius:12px;background:#21172e;margin:5px 0;font-size:12px}
+.catrow b{font-size:11px;white-space:nowrap}.dot{width:9px;height:9px;border-radius:50%}
+.addmain{width:100%;margin:17px 0 12px;border:1px solid #f06cff;border-radius:18px;padding:15px;background:linear-gradient(100deg,#f000c9,#8d00ff);color:#fff;font-weight:850;font-size:19px;box-shadow:0 0 20px #d000ff66}
+.quickform{border:1px solid #56386f;border-radius:21px;padding:15px;background:linear-gradient(145deg,#21142e,#120d1e);box-shadow:var(--shadow)}
+.quickhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;font-weight:800;font-size:17px}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.field{display:flex;flex-direction:column;gap:5px;min-width:0}.field.full{grid-column:1/-1}
+label{font-size:11px;color:#c8b8d8}
+input,select{width:100%;border:1px solid #655174;border-radius:12px;background:#171020;color:#fff;padding:12px 10px;min-width:0}
+input::placeholder{color:#8e809e}
+.save{grid-column:1/-1;border:0;border-radius:14px;padding:14px;background:linear-gradient(100deg,#f000c9,#8700ff);color:white;font-weight:850;font-size:17px;box-shadow:0 0 16px #c500ff55}
+.view{display:none}.view.active{display:block}
+.bottomnav{position:fixed;bottom:0;left:0;right:0;z-index:10;background:#100a1beb;backdrop-filter:blur(18px);border-top:1px solid #3c2b50;padding:9px 8px calc(9px + env(safe-area-inset-bottom));display:flex;justify-content:space-around}
+.bottomnav button{display:flex;flex-direction:column;align-items:center;gap:3px;border:0;background:none;color:#b9abc9;font-size:10px;min-width:62px}
+.bottomnav button span{font-size:21px}.bottomnav button.active{color:#f052ff;text-shadow:0 0 12px #ed45ff}
+.list{display:flex;flex-direction:column;gap:8px}.expense{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#1a1226;border:1px solid #39294c;border-radius:15px;padding:12px}
+.expense .desc{font-weight:700}.expense small{display:block;color:var(--muted);font-size:11px;margin-top:4px}.expense strong{white-space:nowrap}
+.panel{background:#171021;border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:11px}
+.filterrow{display:flex;gap:8px;margin:10px 0}.filterrow select{flex:1}
+.empty{text-align:center;color:var(--muted);padding:24px 10px}
+.progress{height:7px;background:#34263f;border-radius:20px;overflow:hidden;margin-top:7px}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--pink),var(--purple));border-radius:20px}
+.mini{font-size:11px;color:var(--muted);line-height:1.5}
+.cardtitle{font-weight:800;margin:0 0 7px}
+.delete{border:0;background:#482034;color:#ff9db8;border-radius:9px;padding:6px 9px}
+@media(max-width:370px){.brand{font-size:21px}.hero-total{font-size:29px}.chart-layout{grid-template-columns:105px 1fr;gap:8px}.donut{width:104px;height:104px}.donut-inner{width:70px;height:70px}.bank{padding:10px 8px;gap:6px}.bank-name{font-size:15px}.bank-info strong{font-size:12px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top"><div class="brand"><div class="logo">▱</div>Mi Finanzas</div><div class="top-actions"><button class="iconbtn" aria-label="Notificaciones">♧</button><button class="iconbtn" aria-label="Perfil">◎</button></div></header>
+
+<section id="inicio" class="view active">
+<div class="monthbar"><button id="prevMonth">‹</button><input id="monthPick" type="month"><button id="nextMonth">›</button></div>
+<div class="hero"><div class="hero-bottom"><div><div class="hero-label">Total a pagar en tarjetas</div><div class="hero-total" id="totalAll">S/ 0.00</div></div><div class="hero-icon">▤</div></div></div>
+<div class="people">
+<div class="person"><small>● Yo</small><strong id="totalMe">S/ 0.00</strong></div>
+<div class="person"><small>● Diego</small><strong id="totalDiego">S/ 0.00</strong></div>
+<div class="person"><small>● Compartidos</small><strong id="totalShared">S/ 0.00</strong></div>
+</div>
+<div class="section"><h2>Tarjetas</h2><button class="link" data-goto="tarjetas">Ver todas ›</button></div>
+<div class="cards" id="homeCards"></div>
+<div class="section"><h2>Gastos por categoría</h2><button class="link" data-goto="analisis">Ver análisis ›</button></div>
+<div class="chartbox"><div class="chart-layout"><div class="donut" id="donut"><div class="donut-inner"><b id="donutTotal">S/ 0</b><small>Total gastos</small></div></div><div id="categoryRows"></div></div></div>
+<button class="addmain" data-goto="agregar">＋ Agregar gasto</button>
+</section>
+
+<section id="agregar" class="view">
+<div class="section"><h2>Agregar compra</h2></div>
+<div class="quickform"><form id="expenseForm" class="formgrid">
+<div class="field"><label for="desc">Descripción</label><input id="desc" placeholder="Ej. Hamburguesa" required maxlength="70"></div>
+<div class="field"><label for="amount">Monto (S/)</label><input id="amount" type="number" min="0.01" step="0.01" placeholder="18.90" required></div>
+<div class="field"><label for="date">Fecha de compra</label><input id="date" type="date" required></div>
+<div class="field"><label for="category">Categoría</label><select id="category"></select></div>
+<div class="field"><label for="card">Tarjeta / medio</label><select id="card"></select></div>
+<div class="field"><label for="owner">¿A quién corresponde?</label><select id="owner"><option>Yo</option><option>Diego</option><option>Compartido</option></select></div>
+<div class="field" id="shareField" style="display:none"><label for="myShare">Parte que pago yo (S/)</label><input id="myShare" type="number" min="0" step=".01" placeholder="Mitad por defecto"></div>
+<div class="field full"><label for="note">Nota (opcional)</label><input id="note" placeholder="Detalle adicional"></div>
+<button class="save" type="submit">✓ Guardar gasto</button>
+</form></div>
+<p class="mini">Ejemplo: compra de una hamburguesa por S/ 18.90 → escribe la descripción, monto, categoría Comida, tarjeta usada y responsable. Pulsa «Guardar gasto» y aparecerá en tus totales y gráficos.</p>
+</section>
+
+<section id="gastos" class="view">
+<div class="section"><h2>Mis movimientos</h2></div>
+<div class="filterrow"><select id="filterPerson"><option value="">Todas las personas</option><option>Yo</option><option>Diego</option><option>Compartido</option></select><select id="filterCard"><option value="">Todas las tarjetas</option></select></div>
+<div id="expenseList" class="list"></div>
+</section>
+
+<section id="tarjetas" class="view">
+<div class="section"><h2>Mis tarjetas</h2></div>
+<div id="cardDetails" class="list"></div>
+<div class="section"><h2>Agregar otra tarjeta</h2></div>
+<div class="panel"><form id="cardForm" class="formgrid">
+<div class="field full"><label>Nombre de la tarjeta</label><input id="newCardName" placeholder="Ej. Interbank Visa" required></div>
+<div class="field"><label>Día de inicio del ciclo</label><input id="newStart" type="number" min="1" max="31" required></div>
+<div class="field"><label>Día de cierre del ciclo</label><input id="newClose" type="number" min="1" max="31" required></div>
+<button class="save" type="submit">＋ Agregar tarjeta</button>
+</form></div>
+</section>
+
+<section id="analisis" class="view">
+<div class="section"><h2>Análisis del mes</h2></div>
+<div class="panel"><div class="cardtitle">Distribución por persona</div><div id="peopleAnalysis"></div></div>
+<div class="panel"><div class="cardtitle">Gastos por categoría</div><div id="analysisCategories"></div></div>
+<div class="panel"><div class="cardtitle">Gastos por tarjeta</div><div id="analysisCards"></div></div>
+</section>
+
+<section id="personas" class="view">
+<div class="section"><h2>Personas</h2></div>
+<div class="panel"><div class="person" style="margin-bottom:10px"><small>● Yo</small><strong>Titular de las cuatro tarjetas</strong></div><div class="person" style="background:#30260c;border-color:var(--gold)"><small>● Diego</small><strong>Responsable de sus gastos</strong></div><p class="mini">El titular de la tarjeta eres tú. Cada compra puede asignarse a ti, a Diego o marcarse como compartida. El pago de la tarjeta no se cuenta como un gasto nuevo.</p></div>
+</section>
+
+<section id="respaldo" class="view">
+<div class="section"><h2>Respaldo de datos</h2></div>
+<div class="panel"><p>Los registros se guardan en este iPhone o navegador. Exporta una copia periódicamente para no perderlos.</p><button class="save" id="exportBtn">Descargar copia de seguridad</button><label class="field" style="margin-top:14px">Restaurar copia JSON<input type="file" id="importFile" accept=".json,application/json"></label><p class="mini">No introduzcas números completos de tarjetas, CVV, claves ni credenciales bancarias. Esta app no se conecta a tus bancos.</p></div>
+</section>
+</div>
+
+<nav class="bottomnav">
+<button class="active" data-tab="inicio"><span>⌂</span>Inicio</button>
+<button data-tab="gastos"><span>▥</span>Gastos</button>
+<button data-tab="tarjetas"><span>▱</span>Tarjetas</button>
+<button data-tab="personas"><span>♧</span>Personas</button>
+<button data-tab="respaldo"><span>⚙</span>Más</button>
+</nav>
+
+<script>
+const KEY='mi_finanzas_iphone_v1';
+const categories=['Comida','Transporte','Salud','Diversión','Compras personales','Hogar y servicios','Educación','Belleza y cuidado personal','Mascotas','Viajes','Suscripciones','Otros'];
+const colors=['#c43cff','#16dfe2','#ffd329','#ff35c8','#4c8dff','#00dfa0','#ff8b3d','#ee70b8','#93d94d','#5e9cff','#e7a3ff','#9b8ca9'];
+const visa=[
+['2026-01-10','2026-02-05','2025-12-10','2026-01-09'],['2026-02-10','2026-03-05','2026-01-10','2026-02-10'],['2026-03-10','2026-04-07','2026-02-11','2026-03-10'],['2026-04-10','2026-05-05','2026-03-11','2026-04-10'],['2026-05-08','2026-06-08','2026-04-11','2026-05-08'],['2026-06-10','2026-07-06','2026-05-09','2026-06-10'],['2026-07-10','2026-08-05','2026-06-11','2026-07-10'],['2026-08-10','2026-09-07','2026-07-11','2026-08-10'],['2026-09-10','2026-10-05','2026-08-11','2026-09-10'],['2026-10-09','2026-11-05','2026-09-11','2026-10-09'],['2026-11-10','2026-12-07','2026-10-10','2026-11-10'],['2026-12-10','2027-01-05','2026-11-11','2026-12-10']];
+const amex=[
+['2026-01-22','2026-02-18','2025-12-22','2026-01-22'],['2026-02-20','2026-03-18','2026-01-23','2026-02-20'],['2026-03-20','2026-04-20','2026-02-21','2026-03-20'],['2026-04-22','2026-05-18','2026-03-21','2026-04-22'],['2026-05-22','2026-06-18','2026-04-23','2026-05-22'],['2026-06-22','2026-07-20','2026-05-23','2026-06-22'],['2026-07-22','2026-08-18','2026-06-23','2026-07-22'],['2026-08-21','2026-09-21','2026-07-23','2026-08-21'],['2026-09-22','2026-10-19','2026-08-22','2026-09-22'],['2026-10-22','2026-11-18','2026-09-23','2026-10-22'],['2026-11-20','2026-12-18','2026-10-23','2026-11-20'],['2026-12-22','2027-01-18','2026-11-21','2026-12-22']];
+const initialCards=[
+{id:'cmr',name:'CMR',start:10,close:9,rule:'cycle'},
+{id:'bbva',name:'BBVA',start:11,close:10,rule:'cycle'},
+{id:'visa',name:'BCP Visa',start:11,close:10,rule:'visa',schedule:visa},
+{id:'amex',name:'BCP Amex',start:23,close:22,rule:'amex',schedule:amex}
+];
+let db;
+try{db=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){db=null}
+if(!db||!Array.isArray(db.cards)||!Array.isArray(db.expenses))db={cards:initialCards,expenses:[]};
+const $=id=>document.getElementById(id);
+const today=()=>new Date().toISOString().slice(0,10);
+const monthNow=()=>today().slice(0,7);
+const fmt=n=>'S/ '+Number(n||0).toLocaleString('es-PE',{minimumFractionDigits:2,maximumFractionDigits:2});
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function save(){localStorage.setItem(KEY,JSON.stringify(db));render()}
+function month(){return $('monthPick').value||monthNow()}
+function iso(d){return d.toISOString().slice(0,10)}
+function periodFor(card,m){
+ if(card.schedule){const r=card.schedule.find(x=>x[0].slice(0,7)===m);if(r)return {start:r[2],end:r[3]};}
+ const [y,mo]=m.split('-').map(Number);
+ let end=new Date(y,mo-1,card.close), start=new Date(y,mo-2,card.start);
+ return {start:iso(start),end:iso(end)};
+}
+function periodForExpense(card,date){
+ const d=new Date(date+'T12:00:00');let m=date.slice(0,7);
+ if(!card.schedule && d.getDate()>=card.start){m=iso(new Date(d.getFullYear(),d.getMonth()+1,1)).slice(0,7)}
+ return periodFor(card,m);
+}
+function getStatementExpenses(m){
+ let out=[];
+ db.cards.forEach(c=>{let p=periodFor(c,m);db.expenses.forEach(x=>{if(x.cardId===c.id&&x.date>=p.start&&x.date<=p.end)out.push(x)})});
+ return out;
+}
+function parts(list){let me=0,diego=0,shared=0;list.forEach(x=>{let a=+x.amount;if(x.owner==='Yo')me+=a;else if(x.owner==='Diego')diego+=a;else{let my=x.myShare===''||x.myShare==null?a/2:+x.myShare;me+=my;diego+=a-my;shared+=a}});return {me,diego,shared}}
+function nav(id){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id));document.querySelectorAll('.bottomnav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));window.scrollTo({top:0,behavior:'smooth'});}
+document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>nav(b.dataset.tab)));
+document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>nav(b.dataset.goto)));
+function render(){
+ const m=month(),statement=getStatementExpenses(m),p=parts(statement),total=statement.reduce((a,x)=>a+ +x.amount,0);
+ $('totalAll').textContent=fmt(total);$('totalMe').textContent=fmt(p.me);$('totalDiego').textContent=fmt(p.diego);$('totalShared').textContent=fmt(p.shared);$('donutTotal').textContent=fmt(total);
+ $('homeCards').innerHTML=db.cards.map(c=>{let per=periodFor(c,m),items=db.expenses.filter(x=>x.cardId===c.id&&x.date>=per.start&&x.date<=per.end),sum=items.reduce((a,x)=>a+ +x.amount,0);let sub=c.name==='CMR'?'Falabella':c.name==='BCP Visa'?'Visa':c.name==='BCP Amex'?'Amex':'';return `<div class="bank"><div><div class="bank-name">${esc(c.name)}</div><div class="bank-sub">${sub}</div></div><div class="bank-info"><small>A pagar</small><strong>${fmt(sum)}</strong></div></div>`}).join('');
+ const groups={};statement.forEach(x=>groups[x.category]=(groups[x.category]||0)+ +x.amount);
+ const rows=Object.entries(groups).sort((a,b)=>b[1]-a[1]);$('categoryRows').innerHTML=rows.length?rows.slice(0,5).map(([k,v])=>{let i=categories.indexOf(k),pct=total?v/total*100:0;return `<div class="catrow"><i class="dot" style="background:${colors[i<0?11:i]}"></i><span>${esc(k)}</span><b>${pct.toFixed(1)}%</b></div>`}).join(''):'<div class="empty">Agrega tu primer gasto para ver el gráfico.</div>';
+ let sum=0,stops=[];rows.forEach(([k,v])=>{let i=categories.indexOf(k);stops.push(`${colors[i<0?11:i]} ${sum}% ${sum+v/Math.max(total,1)*100}%`);sum+=v/Math.max(total,1)*100});$('donut').style.background=rows.length?`conic-gradient(${stops.join(',')})`:'conic-gradient(#44364f 0 100%)';
+ renderExpenses();renderAnalysis();fillSelects();
+}
+function renderExpenses(){
+ let fp=$('filterPerson').value,fc=$('filterCard').value;
+ let arr=[...db.expenses].filter(x=>(!fp||x.owner===fp)&&(!fc||x.cardId===fc)).sort((a,b)=>b.date.localeCompare(a.date));
+ $('expenseList').innerHTML=arr.length?arr.map(x=>`<div class="expense"><div><div class="desc">${esc(x.desc)}</div><small>${x.date} · ${esc(x.category)} · ${esc(db.cards.find(c=>c.id===x.cardId)?.name||'Efectivo')} · ${esc(x.owner)}</small></div><div style="text-align:right"><strong>${fmt(x.amount)}</strong><br><button class="delete" onclick="removeExpense('${x.id}')">Eliminar</button></div></div>`).join(''):'<div class="empty">Todavía no hay compras registradas.<br>Presiona «Agregar gasto» para comenzar.</div>';
+}
+function barHtml(items,total){return items.length?items.sort((a,b)=>b.v-a.v).map(x=>`<div style="margin:11px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>${esc(x.name)}</span><b>${fmt(x.v)}</b></div><div class="progress"><i style="width:${total?x.v/total*100:0}%"></i></div></div>`).join(''):'<div class="empty">Sin datos todavía.</div>'}
+function renderAnalysis(){
+ let m=month(),list=getStatementExpenses(m),sum=list.reduce((a,x)=>a+ +x.amount,0),p=parts(list);
+ $('peopleAnalysis').innerHTML=barHtml([{name:'Yo',v:p.me},{name:'Diego',v:p.diego}],sum);
+ let cats={};list.forEach(x=>cats[x.category]=(cats[x.category]||0)+ +x.amount);
+ $('analysisCategories').innerHTML=barHtml(Object.entries(cats).map(([name,v])=>({name,v})),sum);
+ let cards={};list.forEach(x=>{let n=db.cards.find(c=>c.id===x.cardId)?.name||'Efectivo / otro';cards[n]=(cards[n]||0)+ +x.amount});
+ $('analysisCards').innerHTML=barHtml(Object.entries(cards).map(([name,v])=>({name,v})),sum);
+}
+function fillSelects(){
+ $('category').innerHTML=categories.map(x=>`<option>${esc(x)}</option>`).join('');
+ $('card').innerHTML='<option value="">Efectivo / otro</option>'+db.cards.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('');
+ $('filterCard').innerHTML='<option value="">Todas las tarjetas</option>'+db.cards.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('');
+ $('cardDetails').innerHTML=db.cards.map(c=>`<div class="panel"><div class="cardtitle">${esc(c.name)}</div><div class="mini">Titular: Tú · Ciclo: día ${c.start} al día ${c.close} del siguiente periodo</div></div>`).join('');
+}
+function removeExpense(id){if(confirm('¿Eliminar este gasto?')){db.expenses=db.expenses.filter(x=>x.id!==id);save()}}
+$('owner').addEventListener('change',()=>{$('shareField').style.display=$('owner').value==='Compartido'?'flex':'none'});
+$('expenseForm').addEventListener('submit',e=>{e.preventDefault();let amount=+$('amount').value,owner=$('owner').value,share=$('myShare').value;if(owner==='Compartido'&&share!==''&&( +share<0||+share>amount)){alert('La parte que pagas tú debe estar entre cero y el total.');return}
+db.expenses.push({id:crypto.randomUUID(),desc:$('desc').value.trim(),amount,date:$('date').value,category:$('category').value,cardId:$('card').value||null,owner,myShare:share,note:$('note').value.trim()});e.target.reset();$('date').value=today();$('shareField').style.display='none';save();nav('inicio');alert('¡Gasto guardado! Ya aparece en tus totales y gráficos.')});
+$('cardForm').addEventListener('submit',e=>{e.preventDefault();db.cards.push({id:crypto.randomUUID(),name:$('newCardName').value.trim(),start:+$('newStart').value,close:+$('newClose').value,rule:'cycle'});e.target.reset();save();alert('Tarjeta agregada.')});
+$('filterPerson').addEventListener('change',renderExpenses);$('filterCard').addEventListener('change',renderExpenses);
+$('monthPick').addEventListener('change',render);
+$('prevMonth').onclick=()=>{let d=new Date(month()+'-01T12:00:00');d.setMonth(d.getMonth()-1);$('monthPick').value=iso(d).slice(0,7);render()};
+$('nextMonth').onclick=()=>{let d=new Date(month()+'-01T12:00:00');d.setMonth(d.getMonth()+1);$('monthPick').value=iso(d).slice(0,7);render()};
+$('exportBtn').onclick=()=>{let blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='respaldo-mi-finanzas.json';a.click();URL.revokeObjectURL(a.href)};
+$('importFile').onchange=async e=>{try{let x=JSON.parse(await e.target.files[0].text());if(!Array.isArray(x.cards)||!Array.isArray(x.expenses))throw 0;db=x;save();alert('Respaldo restaurado.')}catch(err){alert('No se pudo leer el respaldo.')}};
+$('monthPick').value=monthNow();$('date').value=today();render();
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script>
+</body>
+</html>
